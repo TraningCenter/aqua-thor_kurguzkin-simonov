@@ -1,0 +1,37 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor User
+participant "Controller" as c
+participant "Parser" as p
+participant "Data handler" as dh
+participant "Visualizer" as v
+participant "Writer" as w
+
+autonumber
+User -> c : start program
+loop program execution
+c -> c : parse config file
+c -> p : request to parse input file
+p -> p : parse source file
+p --> c : return entities
+c -> dh : check entities request
+dh --> c : return response
+loop simulation time
+c -> dh : process next step
+dh -> dh : process step
+dh --> c : return system snapshot and current statistics
+c -> v : vsualize system snapshot
+v -> v : visualize
+c -> w : write current statistics
+w -> w : write
+end
+c -> p : check input file change
+p --> c : presence of changes
+end
+c --> User : end of program
+
+@enduml

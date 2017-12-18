@@ -1,0 +1,168 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Main {
+    -Controller controller
+}
+
+class Field {
+    -int height
+    -int width
+    -bolean isClosed
+}
+
+Main *-- Controller
+Controller *-- Field
+class Controller {
+    -Field field
+    -Parser parser
+    -DataHandler dataHandler
+    -Visualizer visualizer
+    -Writer writer
+    -int gameTime
+    -Snapshot currentSnapshot
+    -Statistics statistics
+    +void work()
+    -parseConfigFile()
+    -List<Entity> parseInputData()
+    -void destroyAll()
+}
+
+enum FishCode {
+    SHARK
+    FISH
+}
+
+EntityView <.. Snapshot
+class EntityView {
+    -FishCode fishCode
+    -int xCoordinate
+    -int yCoordinate
+}
+
+Controller *-- Snapshot
+class Snapshot {
+    -List<EntityView> views
+    +List<EntityView> getViews()
+}
+
+Controller *-- Statistics
+class Statistics {
+    -int iterationStep
+    -int fishAmount
+    -int sharkAmount
+}
+
+
+Controller *-left- Parser
+abstract class Parser {
+    -String fileLink
+    +{abstract} List<Entity> parse()
+    -void openFile()
+    -void closeFile()
+}
+
+DOMParser --|> Parser
+class DOMParser {
+    +List<Entity> parse()
+}
+JAXBParser --|> Parser
+class JAXBParser {
+    +List<Entity> parse()
+}
+SAXParser --|> Parser
+class SAXParser {
+    +List<Entity> parse()
+}
+STAXParser --|> Parser
+class STAXParser {
+    +List<Entity> parse()
+}
+
+Controller *-- DataHandler
+class DataHandler {
+    -SystemState state
+    +DataHandler(List<Entity> entities)
+    -void checkInput()
+    -initializeSystemState()
+    +void processNextStep()
+    +Snapshot generateShapshot()
+    +Statistics generateStatistics()
+}
+
+DataHandler *-- SystemState
+class SystemState {
+    -boolean fieldClosed
+    -int fieldHeight
+    -int fieldWidth
+    -List<Animal> animals
+    -List<Stream> streams
+}
+
+Controller *-- Visualizer
+Visualizer ..> Snapshot
+Visualizer ..> Field
+class Visualizer {
+    +Visualizer(Field field)
+    +void visualize(Snapshot snapshot)
+}
+
+Controller *-right- Writer
+Writer ..> Statistics
+abstract class Writer {
+    -void openFile()
+    -void closeFile()
+    +{abstract} write(Statistics statistics)
+}
+
+DOMWriter --|> Writer
+class DOMWriter {
+    +write(Statistics statistics)
+}
+
+JAXBWriter --|> Writer
+class JAXBWriter {
+    +write(Statistics statistics)
+}
+
+DataHandler *-- Entity
+interface Entity {
+}
+Animal -up-|> Entity
+abstract class Animal {
+    #FishCode code
+    #boolean alive
+    #int timeToLive
+    #int speed 
+    #int feelDistance
+    #int reproductionFrequency
+    #int xCoordinate
+    #int yCoordinate
+    +void move()
+    +{abstract} void reproduct()
+    +void die()
+}
+
+Fish -up-|> Animal
+class Fish {
+    +void reproduct()
+}
+
+Shark -up-|> Animal
+class Shark {
+    -int timeOfHungryDeath
+    +void eat(Fish fish)
+    +void reproduct()
+}
+
+Stream -up-|>Entity
+class Stream {
+    -int speed
+    -int yStartCoordinate
+    -int yEndCoordinate
+}
+
+note "Controller.parseInputData() {\n\tparser.parse();\n}" as note_parse
+note "Controller.work() {\n\tdataHandler.proccessNextStep();\n\tvisualizer.visualize(dataHandler.generateSnapshot());\n\tWriter.write(dataHandler.generateStatistics();)\n}" as note_work
+
+@enduml
