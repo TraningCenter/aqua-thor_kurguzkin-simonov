@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Configuration>
+	<InputParser>DOM</InputParser>
+	<OutputParser>DOM</OutputParser>
+	<GameTime>15</GameTime>
+	<Field>
+		<IsClosed>false</IsClosed>
+		<FieldWidth>100</FieldWidth>
+		<FieldHeight>50</FieldHeight>
+	</Field>
+</Configuration>
