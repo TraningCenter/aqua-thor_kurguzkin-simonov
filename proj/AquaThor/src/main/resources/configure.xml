@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<in_parser>DOM</in_parser>
 	<out_parser>DOM</out_parser>
@@ -9,3 +9,4 @@
 		<height>50</height>
 	</field>
 </configuration>
+
