@@ -9,6 +9,6 @@ package com.simonov_kurguzkin.aquathor.inputParser;
  *
  * @author Евгений
  */
-public abstract class Parser {
+public class JAXBParser /*extends Parser*/ {
     
 }

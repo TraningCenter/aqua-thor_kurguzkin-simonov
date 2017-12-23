@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simonov_kurguzkin.inputParser;
-
-import com.simonov_kurguzkin.aquathor.inputParser.Parser;
+package com.simonov_kurguzkin.aquathor.visualizer;
 
 /**
  *
  * @author Евгений
  */
-public class ParserTest {
-    
-    Parser parser;
+public class Visualizer {
     
 }

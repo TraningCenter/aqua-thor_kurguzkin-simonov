@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simonov_kurguzkin.aquathor.inputParser;
+package com.simonov_kurguzkin.aquathor.dataHandler;
 
 /**
  *
  * @author Евгений
  */
-public class DOMParser extends Parser {
+public class Entity {
     
 }

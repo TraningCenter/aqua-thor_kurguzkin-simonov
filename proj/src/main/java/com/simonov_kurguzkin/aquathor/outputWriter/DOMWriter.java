@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simonov_kurguzkin.aquathor;
+package com.simonov_kurguzkin.aquathor.outputWriter;
 
 /**
  *
  * @author Евгений
  */
-public class App {
-    
-    public static void main(String[] args) {        
-        System.out.println("Hello world!");
-    }
-    
+public class DOMWriter extends Writer {
+
 }
