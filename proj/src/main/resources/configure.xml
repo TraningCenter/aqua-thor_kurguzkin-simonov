@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<in_parser>DOM</in_parser>
+	<in_parser>SAX</in_parser>
 	<out_parser>DOM</out_parser>
 	<game_time>15</game_time>
 	<field>

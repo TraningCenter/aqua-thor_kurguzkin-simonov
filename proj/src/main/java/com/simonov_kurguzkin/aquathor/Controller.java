@@ -8,6 +8,7 @@ package com.simonov_kurguzkin.aquathor;
 import com.simonov_kurguzkin.aquathor.dataHandler.DataHandler;
 import com.simonov_kurguzkin.aquathor.inputParser.DOMParser;
 import com.simonov_kurguzkin.aquathor.inputParser.Parser;
+import com.simonov_kurguzkin.aquathor.inputParser.SAXParser;
 import com.simonov_kurguzkin.aquathor.outputWriter.DOMWriter;
 import com.simonov_kurguzkin.aquathor.outputWriter.Writer;
 import com.simonov_kurguzkin.aquathor.visualizer.Visualizer;
@@ -15,8 +16,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -36,7 +35,8 @@ public class Controller {
     private Writer writer;
 
     public Controller() {
-        parser = new DOMParser();
+        //parser = new DOMParser();
+        parser = new SAXParser();
         configureFileChanged = true;
         inputFileChanged = true;
     }
@@ -65,7 +65,7 @@ public class Controller {
                         Integer.parseInt((String) config.get("width")),
                         Integer.parseInt((String) config.get("height")));
                 configureFileChanged = false;
-            } catch (ParserConfigurationException | SAXException | IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -75,7 +75,7 @@ public class Controller {
                 dataHandler = new DataHandler();
                 //отдаем entities в datahandler
 
-            } catch (ParserConfigurationException | SAXException | IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
             inputFileChanged = false;
@@ -89,13 +89,13 @@ public class Controller {
             default:
                 parser = new DOMParser();
                 break;
-//            case "SAX"
-//                parser = new SAXParser();
-//                break;
-//            case "STAX"
+            case "SAX":
+                parser = new SAXParser();
+                break;
+//            case "STAX":
 //                parser = new STAXParser();
 //                break;
-//            case "JAXB"
+//            case "JAXB":
 //                parser = new JAXBParser();
 //                break;
         }

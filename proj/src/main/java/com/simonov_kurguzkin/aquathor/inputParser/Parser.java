@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -18,9 +16,9 @@ import org.xml.sax.SAXException;
  */
 public abstract class Parser {
 
-    public abstract Map<String, Object> parseConfigure(String fileLink) throws ParserConfigurationException, SAXException, IOException;
+    public abstract Map<String, Object> parseConfigure(String fileLink) throws IOException;
 
-    public abstract Map<String, Object> parseInput(String fileLink) throws ParserConfigurationException, SAXException, IOException;
+    public abstract Map<String, Object> parseInput(String fileLink) throws IOException;
 
     protected Map<String, Object> listTomap(List<Object> list) {
         Map<String, Object> result = new LinkedHashMap<>();
