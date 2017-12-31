@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<in_parser>SAX</in_parser>
+	<in_parser>DOM</in_parser>
 	<out_parser>DOM</out_parser>
-	<game_time>15</game_time>
+	15</game_time>
 	<field>
 		<enclosed>false</enclosed>
 		<width>100</width>

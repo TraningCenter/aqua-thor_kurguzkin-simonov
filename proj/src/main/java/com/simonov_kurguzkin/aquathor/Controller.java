@@ -28,6 +28,7 @@ public class Controller {
     private final String inputFile = "src/main/resources/input.xml";
     private boolean configureFileChanged;
     private boolean inputFileChanged;
+    private DOMParser configParser;
     private Parser parser;
     private Field field;
     private int gameTime;
@@ -36,6 +37,7 @@ public class Controller {
     private Writer writer;
 
     public Controller() {
+        configParser = new DOMParser();
         parser = new DOMParser();
         configureFileChanged = true;
         inputFileChanged = true;
@@ -57,7 +59,7 @@ public class Controller {
     private void initialize() {
         if (configureFileChanged) {
             try {
-                Map<String, Object> config = parser.parseConfigure(configFile);
+                Map<String, Object> config = configParser.parseConfigure(configFile);
                 initializeParser((String) config.get("in_parser"));
                 initializeWriter((String) config.get("out_parser"));
                 initilizeGameTime(Integer.parseInt((String) config.get("game_time")));
@@ -65,7 +67,7 @@ public class Controller {
                         Integer.parseInt((String) config.get("width")),
                         Integer.parseInt((String) config.get("height")));
                 configureFileChanged = false;
-            } catch (ParserConfigurationException | SAXException | IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -75,7 +77,7 @@ public class Controller {
                 dataHandler = new DataHandler();
                 //отдаем entities в datahandler
 
-            } catch (ParserConfigurationException | SAXException | IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
             inputFileChanged = false;

@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,31 +28,45 @@ import org.xml.sax.SAXException;
  */
 public class DOMParser extends Parser {
     
-    @Override
-    public Map<String, Object> parseConfigure(String fileLink) throws ParserConfigurationException, SAXException, IOException {
-        Map<String, Object> result = new LinkedHashMap<>();
-        Document doc = openDocument(fileLink);
+    public Map<String, Object> parseConfigure(String fileLink) throws IOException {
+        try {
+            Map<String, Object> result = new LinkedHashMap<>();
+            Document doc;
+            doc = openDocument(fileLink);
+            Node tmp = getNode(doc, "in_parser");
+            result.put(tmp.getNodeName(), tmp.getTextContent());
+            tmp = getNode(doc, "out_parser");
+            result.put(tmp.getNodeName(), tmp.getTextContent());
+            tmp = getNode(doc, "game_time");
+            result.put(tmp.getNodeName(), tmp.getTextContent());
+            tmp = getNode(doc, "enclosed");
+            result.put(tmp.getNodeName(), tmp.getTextContent());
+            tmp = getNode(doc, "width");
+            result.put(tmp.getNodeName(), tmp.getTextContent());
+            tmp = getNode(doc, "height");
+            result.put(tmp.getNodeName(), tmp.getTextContent());
 
-        Node tmp = getNode(doc, "in_parser");
-        result.put(tmp.getNodeName(), tmp.getTextContent());
-        tmp = getNode(doc, "out_parser");
-        result.put(tmp.getNodeName(), tmp.getTextContent());
-        tmp = getNode(doc, "game_time");
-        result.put(tmp.getNodeName(), tmp.getTextContent());
-        tmp = getNode(doc, "enclosed");
-        result.put(tmp.getNodeName(), tmp.getTextContent());
-        tmp = getNode(doc, "width");
-        result.put(tmp.getNodeName(), tmp.getTextContent());
-        tmp = getNode(doc, "height");
-        result.put(tmp.getNodeName(), tmp.getTextContent());
-
-        return result;
+            return result;
+        } catch (Exception ex) {
+            System.out.println("Exception ex while DOM parsing config-file");
+            Logger.getLogger(STAXParser.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IOException(ex.getMessage(), ex.getCause());
+        }
     }
 
     @Override
-    public Map<String, Object> parseInput(String fileLink) throws ParserConfigurationException, SAXException, IOException {
+    public Map<String, Object> parseInput(String fileLink) throws IOException {
         List<Object> tmp=new ArrayList<>();
-        Document doc = openDocument(fileLink);
+        Document doc;
+        try {
+            doc = openDocument(fileLink);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(DOMParser.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IOException(ex.getMessage(), ex.getCause());
+        } catch (SAXException ex) {
+            Logger.getLogger(DOMParser.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IOException(ex.getMessage(), ex.getCause());
+        }
 
         NodeList streams = doc.getElementsByTagName("stream");
         tmp.add(streams.getLength());

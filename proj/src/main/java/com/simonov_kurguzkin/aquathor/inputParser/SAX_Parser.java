@@ -23,19 +23,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class SAX_Parser extends Parser {
 
     @Override
-    public Map<String, Object> parseConfigure(String fileLink) throws ParserConfigurationException, SAXException, IOException {
-        Map<String, Object> result = new LinkedHashMap<>();
-
-        SAXParserFactory saxpf = SAXParserFactory.newInstance();
-        SAXParser parser = saxpf.newSAXParser();
-        SAX_Parser handler = new SAX_Parser();
-        //parser.parse(fileLink, handler);
-
-        return result;
-    }
-
-    @Override
-    public Map<String, Object> parseInput(String fileLink) throws ParserConfigurationException, SAXException, IOException {
+    public Map<String, Object> parseInput(String fileLink) throws IOException {
         List<Object> tmp = new ArrayList<>();
 
         return listTomap(tmp);

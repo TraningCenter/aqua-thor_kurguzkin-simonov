@@ -18,9 +18,7 @@ import org.xml.sax.SAXException;
  */
 public abstract class Parser {
 
-    public abstract Map<String, Object> parseConfigure(String fileLink) throws ParserConfigurationException, SAXException, IOException;
-
-    public abstract Map<String, Object> parseInput(String fileLink) throws ParserConfigurationException, SAXException, IOException;
+    public abstract Map<String, Object> parseInput(String fileLink) throws IOException;
 
     protected Map<String, Object> listTomap(List<Object> list) {
         Map<String, Object> result = new LinkedHashMap<>();
