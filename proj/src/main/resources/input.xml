@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities>
+	<streams>
+		<stream>
+			<speed>1</speed>
+			<y_start>0</y_start>
+			<y_end>5</y_end>
+		</stream>
+		<stream>
+			<speed>-1</speed>
+			<y_start>6</y_start>
+			<y_end>9</y_end>
+		</stream>
+	</streams>
+	<animals>
+		<fish>
+			<reproduction_frequency>5</reproduction_frequency>
+			<time_to_live>10</time_to_live>
+			<speed>3</speed>
+			<feel_radius>4</feel_radius>
+			<quantity>20</quantity>
+		</fish>
+		<shark>
+			<time_to_live>15</time_to_live>
+			<time_to_hungry_live>15</time_to_hungry_live>
+			<speed>3</speed>
+			<feel_radius>7</feel_radius>
+			<quantity>10</quantity>
+		</shark>
+	</animals>
+</entities>

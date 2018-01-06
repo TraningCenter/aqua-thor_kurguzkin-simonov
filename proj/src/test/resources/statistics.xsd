@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="statistics">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element name="step">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="iteration" type="xs:nonNegativeInteger " />
+                            <xs:element name="fishes_alive" type="xs:nonNegativeInteger " />
+                            <xs:element name="sharks_alive" type="xs:nonNegativeInteger " />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>            
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

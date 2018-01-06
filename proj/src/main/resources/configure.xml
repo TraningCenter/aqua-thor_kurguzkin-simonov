@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<in_parser>DOM</in_parser>
+	<out_parser>DOM</out_parser>
+	<game_time>25</game_time>
+	<field>
+		<enclosed>false</enclosed>
+		<width>30</width>
+		<height>10</height>
+	</field>
+</configuration>
+

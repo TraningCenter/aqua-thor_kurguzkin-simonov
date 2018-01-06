@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="entities">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="streams">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="stream">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="speed" type="xs:int" />
+                                        <xs:element name="y_start" type="xs:nonNegativeInteger " />
+                                        <xs:element name="y_end" type="xs:positiveInteger" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>                       
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="animals">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="fish">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="reproduction_frequency" type="xs:positiveInteger" />
+                                        <xs:element name="time_to_live" type="xs:positiveInteger" />
+                                        <xs:element name="speed" type="xs:positiveInteger" />
+                                        <xs:element name="feel_radius" type="xs:positiveInteger" />
+                                        <xs:element name="quantity" type="xs:positiveInteger" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="shark">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="time_to_live" type="xs:positiveInteger" />
+                                        <xs:element name="time_to_hungry_live" type="xs:positiveInteger" />
+                                        <xs:element name="speed" type="xs:positiveInteger" />
+                                        <xs:element name="feel_radius" type="xs:positiveInteger" />
+                                        <xs:element name="quantity" type="xs:positiveInteger" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

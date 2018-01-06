@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statistics>
+    <step>
+        <iteration>0</iteration>
+        <fishes_alive>20</fishes_alive>
+        <sharks_alive>15</sharks_alive>
+    </step>
+    <step>
+        <iteration>1</iteration>
+        <fishes_alive>17</fishes_alive>
+        <sharks_alive>15</sharks_alive>
+    </step>
+    <step>
+        <iteration>2</iteration>
+        <fishes_alive>14</fishes_alive>
+        <sharks_alive>15</sharks_alive>
+    </step>
+    <step>
+        <iteration>3</iteration>
+        <fishes_alive>11</fishes_alive>
+        <sharks_alive>16</sharks_alive>
+    </step>
+</statistics>

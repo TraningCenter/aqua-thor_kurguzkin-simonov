@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<in_parser>SAX</in_parser>
+	<out_parser>JAXB</out_parser>
+	<game_time>100500</game_time>
+	<field>
+		<enclosed>false</enclosed>
+		<width>35</width>
+		<height>35</height>
+	</field>
+</configuration>
+

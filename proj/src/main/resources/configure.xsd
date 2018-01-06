@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="in_parser">
+                    <xs:simpleType> 
+                        <xs:restriction base="xs:string"> 
+                            <xs:enumeration value="DOM" /> 
+                            <xs:enumeration value="SAX" /> 
+                            <xs:enumeration value="STAX" /> 
+                            <xs:enumeration value="JAXB" />
+                        </xs:restriction> 
+                    </xs:simpleType>                     
+                </xs:element>
+                <xs:element name="out_parser">
+                    <xs:simpleType> 
+                        <xs:restriction base="xs:string"> 
+                            <xs:enumeration value="DOM" />
+                            <xs:enumeration value="JAXB" />
+                        </xs:restriction> 
+                    </xs:simpleType>     
+                </xs:element>
+                <xs:element name="game_time" type="xs:positiveInteger" />
+                <xs:element name="field">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="enclosed" type="xs:boolean" />
+                            <xs:element name="width" type="xs:positiveInteger" />
+                            <xs:element name="height" type="xs:positiveInteger" />
+                        </xs:sequence>                       
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
