@@ -16,12 +16,13 @@ import com.simonov_kurguzkin.aquathor.outputWriter.XMLWriter;
 import com.simonov_kurguzkin.aquathor.visualizer.Visualizer;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A class that stores the basics classes and controls their interaction
+ * A class that stores basics classes and controls their interaction
  *
  * @author Eugene
  */
@@ -64,21 +65,9 @@ public class Controller {
      */
     private Parser inputParser;
     /**
-     * Displays the presence of changes in the configure file
-     */
-    private boolean configureFileChanged;
-    /**
-     * Displays the presence of changes in the input file
-     */
-    private boolean inputFileChanged;
-    /**
-     * Auxiliary variable to check for changes in configuration file
-     */
-    private long configLastModified;
-    /**
      * Auxiliary variable to check for changes in input file
      */
-    private long inputLastModified;
+    private long lastFilesCheck;
     /**
      * Game field
      */
@@ -132,8 +121,7 @@ public class Controller {
         this.outputXMLFileName = outputXMLFileName;
         this.outputCSVFileName = outputCSVFileName;
         configParser = new DOMParser();
-        configureFileChanged = true;
-        inputFileChanged = true;
+        updateLastCheckFiles();
         this.pause = 1000;
     }
 
@@ -141,8 +129,7 @@ public class Controller {
      * Method, in which all the basics parts works
      */
     public void work() {
-        checkFilesChanged();
-        while (configureFileChanged || inputFileChanged) {
+        do {
             try {
                 initialize();
             } catch (IllegalArgumentException | IOException ex) {
@@ -154,7 +141,6 @@ public class Controller {
             }
 
             xmlWriter.deleteFile(outputXMLFileName);
-            csvWriter.deleteFile(outputCSVFileName);
             int iteration = 0;
             while (iteration++ <= gameTime) {
                 visualizer.visualize(dataHandler.generateSnapshot());
@@ -167,6 +153,7 @@ public class Controller {
                     Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            csvWriter.deleteFile(outputCSVFileName);
             csvWriter.createCSV(outputXMLFileName, xsdOutputXMLFileName);
             csvWriter.writeFile();
             try {
@@ -174,9 +161,7 @@ public class Controller {
             } catch (IOException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            checkFilesChanged();
-        }
+        } while (checkFilesChanged());
     }
 
     /**
@@ -186,21 +171,17 @@ public class Controller {
      * data
      */
     private void initialize() throws IOException {
-        if (configureFileChanged || inputFileChanged) {
-            Map<String, Object> config = configParser.parseConfigure(configFileName, xsdConfigFileName);
-            initializeParser((String) config.get("in_parser"));
-            initializeWriter((String) config.get("out_parser"));
-            initilizeGameTime(Integer.parseInt((String) config.get("game_time")));
-            field = new Field(Boolean.valueOf((String) config.get("enclosed")),
-                    Integer.parseInt((String) config.get("width")),
-                    Integer.parseInt((String) config.get("height")));
+        Map<String, Object> config = configParser.parseConfigure(configFileName, xsdConfigFileName);
+        initializeParser((String) config.get("in_parser"));
+        initializeWriter((String) config.get("out_parser"));
+        initilizeGameTime(Integer.parseInt((String) config.get("game_time")));
+        field = new Field(Boolean.valueOf((String) config.get("enclosed")),
+                Integer.parseInt((String) config.get("width")),
+                Integer.parseInt((String) config.get("height")));
 
-            Map<String, Object> entities = inputParser.parseInput(inputFileName, xsdInputFileName);
-            dataHandler = new DataHandler(entities, field);
-            visualizer = new Visualizer(field);
-        }
-        inputFileChanged = false;
-        configureFileChanged = false;
+        Map<String, Object> entities = inputParser.parseInput(inputFileName, xsdInputFileName);
+        dataHandler = new DataHandler(entities, field);
+        visualizer = new Visualizer(field);
     }
 
     /**
@@ -261,24 +242,23 @@ public class Controller {
     }
 
     /**
-     * Method that checks whether the files were modified in program runtime
+     * Method for checking for changes in input files
      */
-    private void checkFilesChanged() {
-        File file = new File(configFileName);
-        long lastModified = file.lastModified();
-        if (lastModified != configLastModified) {
-            configureFileChanged = true;
-            configLastModified = lastModified;
-        } else
-            configureFileChanged = false;
+    private boolean checkFilesChanged() {
+        File config = new File(configFileName);
+        File input = new File(inputFileName);
+        long configLastModified = config.lastModified();
+        long inputLastModified = input.lastModified();
 
-        file = new File(inputFileName);
-        lastModified = file.lastModified();
-        if (lastModified != inputLastModified) {
-            inputFileChanged = true;
-            inputLastModified = lastModified;
-        } else
-            inputFileChanged = false;
+        boolean result = (lastFilesCheck < configLastModified
+                || lastFilesCheck < inputLastModified);
+        updateLastCheckFiles();
+        return result;
+    }
+
+    private void updateLastCheckFiles() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        lastFilesCheck = timestamp.getTime();
     }
 
 }

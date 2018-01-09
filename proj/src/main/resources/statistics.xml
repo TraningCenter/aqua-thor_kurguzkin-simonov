@@ -2,42 +2,67 @@
 <statistics>
     <step>
         <iteration>0</iteration>
-        <fishes_alive>1</fishes_alive>
+        <fishes_alive>15</fishes_alive>
         <sharks_alive>10</sharks_alive>
     </step>
     <step>
         <iteration>1</iteration>
-        <fishes_alive>1</fishes_alive>
+        <fishes_alive>14</fishes_alive>
         <sharks_alive>10</sharks_alive>
     </step>
     <step>
         <iteration>2</iteration>
-        <fishes_alive>0</fishes_alive>
-        <sharks_alive>10</sharks_alive>
-    </step>
-    <step>
-        <iteration>3</iteration>
-        <fishes_alive>0</fishes_alive>
-        <sharks_alive>10</sharks_alive>
-    </step>
-    <step>
-        <iteration>4</iteration>
-        <fishes_alive>0</fishes_alive>
+        <fishes_alive>13</fishes_alive>
         <sharks_alive>11</sharks_alive>
     </step>
     <step>
-        <iteration>5</iteration>
-        <fishes_alive>0</fishes_alive>
+        <iteration>3</iteration>
+        <fishes_alive>12</fishes_alive>
         <sharks_alive>12</sharks_alive>
     </step>
     <step>
-        <iteration>6</iteration>
-        <fishes_alive>0</fishes_alive>
+        <iteration>4</iteration>
+        <fishes_alive>9</fishes_alive>
+        <sharks_alive>14</sharks_alive>
+    </step>
+    <step>
+        <iteration>5</iteration>
+        <fishes_alive>7</fishes_alive>
         <sharks_alive>15</sharks_alive>
     </step>
     <step>
+        <iteration>6</iteration>
+        <fishes_alive>9</fishes_alive>
+        <sharks_alive>11</sharks_alive>
+    </step>
+    <step>
         <iteration>7</iteration>
-        <fishes_alive>0</fishes_alive>
-        <sharks_alive>15</sharks_alive>
+        <fishes_alive>7</fishes_alive>
+        <sharks_alive>12</sharks_alive>
+    </step>
+    <step>
+        <iteration>8</iteration>
+        <fishes_alive>5</fishes_alive>
+        <sharks_alive>10</sharks_alive>
+    </step>
+    <step>
+        <iteration>9</iteration>
+        <fishes_alive>4</fishes_alive>
+        <sharks_alive>10</sharks_alive>
+    </step>
+    <step>
+        <iteration>10</iteration>
+        <fishes_alive>4</fishes_alive>
+        <sharks_alive>7</sharks_alive>
+    </step>
+    <step>
+        <iteration>11</iteration>
+        <fishes_alive>2</fishes_alive>
+        <sharks_alive>6</sharks_alive>
+    </step>
+    <step>
+        <iteration>12</iteration>
+        <fishes_alive>4</fishes_alive>
+        <sharks_alive>7</sharks_alive>
     </step>
 </statistics>
