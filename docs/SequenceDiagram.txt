@@ -6,31 +6,40 @@ skinparam sequenceParticipant underline
 
 actor User
 participant "Controller" as c
-participant "Parser" as p
+participant "Config parser" as cp
+participant "Input parser" as ip
+participant "Output parser" as op
 participant "Data handler" as dh
 participant "Visualizer" as v
-participant "Writer" as w
+participant "Output writer" as w
 
 autonumber
 User -> c : start program
 loop program execution
-c -> c : parse config file
-c -> p : request to parse input file
-p -> p : parse source file
-p --> c : return entities
-c -> dh : check entities request
-dh --> c : return response
+c -> cp : parse config file
+cp --> c : map of config data
+c -> c : initialize input and output parsers, game time, field
+c -> ip : parse input file
+ip --> c : map of input data
+c -> c : initialize entities and visualizer
+c -> c : update output XML file
 loop simulation time
+c -> dh : generate snapshot of current state
+dh --> c : snapshot
+c -> v : visualize snapshot
+c -> dh : generate statistics of current state
+dh --> c : statistics
+c -> w : add record about statistics
+w -> w : add record
 c -> dh : process next step
 dh -> dh : process step
-dh --> c : return system snapshot and current statistics
-c -> v : vsualize system snapshot
-v -> v : visualize
-c -> w : write current statistics
-w -> w : write
 end
-c -> p : check input file change
-p --> c : presence of changes
+c -> c : update output CSV file
+c -> w : create CSV data
+w -> w : convert output XML data to CSV
+c -> w : write CSV file
+c -> v : close screen
+c -> c : check for changes in config or input files
 end
 c --> User : end of program
 
