@@ -4,6 +4,8 @@ import java.io.File;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for convert XML data to CSV
@@ -51,6 +53,8 @@ public abstract class CSVWriter extends Writer {
                     .newValidator()
                     .validate(new StreamSource(xml));
         } catch (Exception e) {
+            Logger logger = LoggerFactory.getLogger(CSVWriter.class);
+            logger.error("Some error with XML validating during CSV writing");
             return false;
         }
         return true;

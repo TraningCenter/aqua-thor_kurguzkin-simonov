@@ -3,11 +3,11 @@ package com.simonov_kurguzkin.aquathor.outputWriter;
 import com.simonov_kurguzkin.aquathor.outputWriter.jaxbWritingAdds.AStatistics;
 import com.simonov_kurguzkin.aquathor.outputWriter.jaxbWritingAdds.Step;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class writes statistics information after simulation into CSV file 
@@ -27,8 +27,10 @@ public class JAXB_CSVWriter extends CSVWriter{
 
     @Override
     public void createCSV(String fileXML, String fileXSD) {
-        if (!validateXML(fileXML, fileXSD))
-            Logger.getLogger("Couldn't write output .csv file");
+        if (!validateXML(fileXML, fileXSD)) {
+            Logger logger = LoggerFactory.getLogger(JAXB_CSVWriter.class);
+            logger.error("could not write output .csv file");
+        }
         content.append(header);
         content.append(lineSeparator);
         StringBuilder tmp = new StringBuilder();
@@ -46,7 +48,8 @@ public class JAXB_CSVWriter extends CSVWriter{
                 tmp.append(lineSeparator);
             }
         } catch (JAXBException ex) {
-            Logger.getLogger(JAXB_CSVWriter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(JAXB_CSVWriter.class);
+            logger.error("Some error during CSV JAXB creation");
         } finally {
             System.out.println("OK");
         }

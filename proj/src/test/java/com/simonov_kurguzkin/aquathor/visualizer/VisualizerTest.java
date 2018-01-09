@@ -8,11 +8,11 @@ import com.simonov_kurguzkin.aquathor.auxiliaryUnits.StreamView;
 import com.simonov_kurguzkin.aquathor.dataHandler.AnimalCode;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -27,7 +27,8 @@ public class VisualizerTest {
         try {
             vis = new Visualizer(new Field(true, 10, 20));
         } catch (IOException ex) {
-            Logger.getLogger(VisualizerTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(VisualizerTest.class);
+            logger.error("Error during trying to visualize picture in test");
         }
     }
 

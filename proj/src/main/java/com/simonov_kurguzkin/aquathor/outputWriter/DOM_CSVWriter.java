@@ -1,11 +1,11 @@
 package com.simonov_kurguzkin.aquathor.outputWriter;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,8 +33,10 @@ public class DOM_CSVWriter extends CSVWriter {
 
     @Override
     public void createCSV(String fileXML, String fileXSD) {
-        if (!validateXML(fileXML, fileXSD))
-            Logger.getLogger("could not write output .csv file");
+        if (!validateXML(fileXML, fileXSD)) {
+            Logger logger = LoggerFactory.getLogger(DOM_CSVWriter.class);
+            logger.error("could not write output .csv file");
+        }
 
         content.append(header);
         content.append(lineSeparator);
@@ -59,7 +61,8 @@ public class DOM_CSVWriter extends CSVWriter {
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException ex) {
-            Logger.getLogger(DOM_CSVWriter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(DOM_CSVWriter.class);
+            logger.error("Some error during CSV DOM creation");
         }
         content.append(tmp);
     }

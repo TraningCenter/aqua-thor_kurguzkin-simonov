@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.stream.XMLStreamReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * XML STAX parsing functionality
@@ -154,7 +154,8 @@ public class STAXParser extends Parser {
             }
             return listTomap(listToReturn);
         } catch (Exception ex) {
-            Logger.getLogger(STAXParser.class.getName()).log(Level.SEVERE, "Exception ex while STAX parsing", ex);
+            Logger logger = LoggerFactory.getLogger(STAXParser.class);
+            logger.error("Some error with STAX input parsing");
             throw new IOException(ex.getMessage(), ex.getCause());
         }
     }

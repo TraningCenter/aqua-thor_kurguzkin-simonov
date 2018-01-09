@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -35,7 +37,8 @@ public class SAXParser extends Parser {
             parser = SAXParserFactory.newInstance().newSAXParser();
             handler = new SAXParserHandler();
         } catch (ParserConfigurationException | SAXException ex) {
-            //Logger.getLogger(SAXParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(SAXParser.class);
+            logger.error("Something wrong during initializing SAX parser");
         }
     }
 
@@ -55,7 +58,8 @@ public class SAXParser extends Parser {
             Map<String, Object> result = handler.getResultMap();
             return result;
         } catch (SAXException ex) {
-            //Logger.getLogger(SAXParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(SAXParser.class);
+            logger.error("Something wrong in SAX configure parser");
             throw new IOException(ex.getMessage(), ex.getCause());
         }
     }
@@ -69,7 +73,8 @@ public class SAXParser extends Parser {
             List<Object> tmp = handler.getResultList();
             return listTomap(tmp);
         } catch (IndexOutOfBoundsException | SAXException ex) {
-            //Logger.getLogger(SAXParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(SAXParser.class);
+            logger.error("Something wrong in SAX input parser");
             throw new IOException(ex.getMessage(), ex.getCause());
         }
     }

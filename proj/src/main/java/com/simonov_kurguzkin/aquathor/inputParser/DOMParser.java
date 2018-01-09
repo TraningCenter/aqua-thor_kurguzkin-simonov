@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -52,7 +54,8 @@ public class DOMParser extends Parser {
 
             return result;
         } catch (NullPointerException | ParserConfigurationException | SAXException ex) {
-            //Logger.getLogger(DOMParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(DOMParser.class);
+            logger.error("Something wrong in DOMParsing configure file");
             throw new IOException(ex.getMessage(), ex.getCause());
         }
     }
@@ -99,7 +102,8 @@ public class DOMParser extends Parser {
 
             return listTomap(tmp);
         } catch (NullPointerException | NumberFormatException | ParserConfigurationException | SAXException ex) {
-            //Logger.getLogger(DOMParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(DOMParser.class);
+            logger.error("Something wrong in DOMParsing input file");
             throw new IOException(ex.getMessage(), ex.getCause());
         }
     }

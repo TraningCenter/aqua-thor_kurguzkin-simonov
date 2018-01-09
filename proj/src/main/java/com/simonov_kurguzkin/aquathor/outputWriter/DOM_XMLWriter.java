@@ -3,8 +3,6 @@ package com.simonov_kurguzkin.aquathor.outputWriter;
 import com.simonov_kurguzkin.aquathor.auxiliaryUnits.Statistics;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,6 +12,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -55,6 +55,8 @@ public class DOM_XMLWriter extends XMLWriter {
             docBuilder = docFactory.newDocumentBuilder();
             document = docBuilder.newDocument();
         } catch (ParserConfigurationException ex) {
+            Logger logger = LoggerFactory.getLogger(DOM_XMLWriter.class);
+            logger.error("Some error during DOM_XMLWriter initializing");
             throw new IOException();
         }
     }
@@ -92,7 +94,8 @@ public class DOM_XMLWriter extends XMLWriter {
             transformer.transform(domSource, sr);
             content = new StringBuilder(sw.toString());
         } catch (TransformerException ex) {
-            Logger.getLogger(DOM_XMLWriter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(DOM_XMLWriter.class);
+            logger.error("Error occurred during adding DOM statistics record");
         }
     }
 

@@ -18,8 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A class that stores basics classes and controls their interaction
@@ -133,10 +133,10 @@ public class Controller {
             try {
                 initialize();
             } catch (IllegalArgumentException | IOException ex) {
-                Logger.getAnonymousLogger().log(Level.SEVERE,
-                        "When reading the input files, an error occurred. "
+                Logger logger = LoggerFactory.getLogger(Controller.class);
+                logger.error("When reading the input files, an error occurred. "
                         + "\nPlease check the presence of files and the correctness of the records in them. "
-                        + "\nAfter that restart this program", ex);
+                        + "\nAfter that restart this program");
                 return;
             }
 
@@ -150,7 +150,8 @@ public class Controller {
                 try {
                     Thread.sleep(pause);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger logger = LoggerFactory.getLogger(Controller.class);
+                    logger.error("Some error during thread sleeping in controller");
                 }
             }
             csvWriter.deleteFile(outputCSVFileName);
@@ -159,7 +160,8 @@ public class Controller {
             try {
                 visualizer.closeScreen();
             } catch (IOException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                Logger logger = LoggerFactory.getLogger(Controller.class);
+                logger.error("Error while trying to close the screen in controller");
             }
         } while (checkFilesChanged());
     }

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * XML JAXB parsing functionality
@@ -48,8 +48,8 @@ public class JAXBParser extends Parser {
                     shark.getSpeed(), shark.getFeel_radius()));
             return listTomap(listToReturn);
         } catch (NullPointerException | JAXBException ex) {
-            System.out.println("Exception ex while JAXB parsing");
-            Logger.getLogger(STAXParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(JAXBParser.class);
+            logger.error("Something wrong in JAXB input parser");
             throw new IOException(ex.getMessage(), ex.getCause());
         }
     }

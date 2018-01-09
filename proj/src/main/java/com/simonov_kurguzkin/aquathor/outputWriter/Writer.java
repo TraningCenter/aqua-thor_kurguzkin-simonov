@@ -4,8 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for writing output files
@@ -67,12 +67,14 @@ public abstract class Writer {
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException ex) {
-            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger logger = LoggerFactory.getLogger(Writer.class);
+            logger.error("Error occurred writing file");
         } finally {
             try {
                 fileWriter.close();
             } catch (IOException ex) {
-                Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger logger = LoggerFactory.getLogger(Writer.class);
+                logger.error("Error occurred during closing file after it's been written");
             }
         }
     }

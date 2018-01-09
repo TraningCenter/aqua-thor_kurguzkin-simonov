@@ -15,6 +15,8 @@ import com.simonov_kurguzkin.aquathor.auxiliaryUnits.StreamView;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Whole functionality for simulation demonstration
@@ -93,11 +95,14 @@ public class Visualizer {
             drawInfoSection(snapshot);
             screen.refresh();
         } catch (Exception ex) {
+            Logger logger = LoggerFactory.getLogger(Visualizer.class);
+            logger.error("Error occurred during visualizing snapshot");
             ex.printStackTrace();
             if (screen != null) {
                 try {
                     screen.close();
                 } catch (Exception inner_ex) {
+                    logger.error("Error occurred while trying to close screen after exception in visualizer");
                     inner_ex.printStackTrace();
                 }
             }

@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for converting input XML files to program data
@@ -75,6 +77,8 @@ public abstract class Parser {
                     .newValidator()
                     .validate(new StreamSource(xml));
         } catch (Exception e) {
+            Logger logger = LoggerFactory.getLogger(Parser.class);
+            logger.error("Some error during XML XSD validation");
             return false;
         }
         return true;

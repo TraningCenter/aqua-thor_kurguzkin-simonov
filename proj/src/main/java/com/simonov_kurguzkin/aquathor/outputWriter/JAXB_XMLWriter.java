@@ -4,11 +4,11 @@ import com.simonov_kurguzkin.aquathor.auxiliaryUnits.Statistics;
 import com.simonov_kurguzkin.aquathor.outputWriter.jaxbWritingAdds.AStatistics;
 import com.simonov_kurguzkin.aquathor.outputWriter.jaxbWritingAdds.Step;
 import java.io.ByteArrayOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class writes statistics information every simulation step into XML file 
@@ -58,8 +58,8 @@ public class JAXB_XMLWriter extends XMLWriter {
 
             content = sb;
         } catch (JAXBException ex) {
-            Logger.getLogger(JAXB_XMLWriter.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
+            Logger logger = LoggerFactory.getLogger(JAXB_XMLWriter.class);
+            logger.error("Error occurred during adding JAXB statistics record");
         }
     }
 
