@@ -9,85 +9,172 @@ class Field {
     -int height
     -int width
     -bolean isClosed
+    -final int maxWidth
+    -final int maxHeight
+    +Field(isClosed, width, height)
 }
 
-Main *-- Controller
-Controller *-- Field
-class Controller {
-    -Field field
-    -Parser parser
-    -DataHandler dataHandler
-    -Visualizer visualizer
-    -Writer writer
-    -int gameTime
-    -Snapshot currentSnapshot
-    -Statistics statistics
-    +void work()
-    -parseConfigFile()
-    -List<Entity> parseInputData()
-    -void destroyAll()
-}
-
-enum FishCode {
+enum AnimalCode {
     SHARK
     FISH
 }
 
-EntityView <.. Snapshot
-class EntityView {
-    -FishCode fishCode
+interface EntityView {
+}
+AnimalView ..|> EntityView
+class AnimalView {
+    -AnimalCode animalCode
     -int xCoordinate
     -int yCoordinate
+    +AnimalCode(animalCode, x, y)
+}
+StreamView ..|> EntityView
+class StreamView {
+    -int start
+    -int end
+    -int speed
+    +StreamView(start, end, speed)
 }
 
-Controller *-- Snapshot
+Snapshot ..> EntityView
 class Snapshot {
     -List<EntityView> views
-    +List<EntityView> getViews()
+    -int iterationNum
+    +Snapshot(views, iterationNum)
 }
 
-Controller *-- Statistics
 class Statistics {
     -int iterationStep
     -int fishAmount
     -int sharkAmount
 }
 
+Main *-- Controller
+Controller *-- Field
+class Controller {
+    -String configFile
+    -String xsdConfigFile
+    -String inputFile
+    -String xsdInputFile
+    -String outputXMLFile
+    -String xsdOutputFile
+    -String outputCSVFile
+    -DOMParser configParser
+    -Parser inputParser
+    -Field field
+    -int gameTime
+    -DataHandler dataHandler
+    -Visualizer visualizer
+    -XMLWriter xmlWriter
+    -CSVWriter csvWriter
+    +Controller(configFile, inputFile, outputXMLFile, outputCSVFile)
+    +work()
+    -initialize()
+    -checkFilesChanged()
+}
 
 Controller *-left- Parser
 abstract class Parser {
-    -String fileLink
-    +{abstract} List<Entity> parse()
-    -void openFile()
-    -void closeFile()
+    +{abstract} Map<String, Object> parseInput(String fileLink, String xsdFileLink)
+    #Map<String, Object> listToMap(List<Object> list)
+    #boolean validateXML(String xmlFileName, String xsdFileName)
 }
 
-DOMParser --|> Parser
+DOMParser -up-|> Parser
 class DOMParser {
-    +List<Entity> parse()
+    +Map<String, Object> parseInput(fileLink, xsdFileLink)
+    +Map<String, Object> parseConfigure(String fileLink, String xsdFileLink)
 }
-JAXBParser --|> Parser
-class JAXBParser {
-    +List<Entity> parse()
-}
-SAXParser --|> Parser
+SAXParser -up-|> Parser
 class SAXParser {
-    +List<Entity> parse()
+    +public SAXParser()
+    +Map<String, Object> parseConfigure(fileLink, xsdFileLink)
+    +Map<String, Object> parseInput(fileLink, xsdFileLink)
+    -class SAXParserHandler
 }
-STAXParser --|> Parser
+JAXBParser -down-|> Parser
+class JAXBParser {
+    +Map<String, Object> parseInput(fileLink, xsdFileLink)
+}
+STAXParser -down-|> Parser
 class STAXParser {
-    +List<Entity> parse()
+    +Map<String, Object> parseInput(fileLink, xsdFileLink)
 }
 
 Controller *-- DataHandler
 class DataHandler {
     -SystemState state
-    +DataHandler(List<Entity> entities)
-    -void checkInput()
-    -initializeSystemState()
+    -Field field
+    -int iterationNum
+    -AnimalListener observer
+    +DataHandler(Map<String, Object> entities, Field field)
     +void processNextStep()
     +Snapshot generateShapshot()
     +Statistics generateStatistics()
+}
+
+SystemState *-- Entity
+class Entity {
+}
+Animal --|> Entity
+abstract class Animal {
+    #AnimalCode code
+    #boolean alive
+    #int lifetime
+    #int speed 
+    #int feelDistance
+    #int reproductionFrequency
+    #int xCoordinate
+    #int yCoordinate
+    #int age
+    #IAnimalListener listener
+    +Animal(code, lifetime, speed, feelDistance, x, y, iAnimalListener)
+    +{abstract} void nextAction(List<Animal> animals, List<Stream> streams, Field field)
+    #{abstract} void reproduct()
+    #{abstract} void die()
+}
+
+Animal ..> IAnimalListener
+interface IAnimalListener {
+    void animalDie(Animal animal)
+    void animalReproduct(Animal animal)
+}
+
+AnimalListener ..|> IAnimalListener
+class AnimalListener {
+    -DataHandler listener
+    AnimalListener(DataHandler dataHandler)
+    +void animalDie(Animal animal)
+    +void animalReproduct(Animal animal)
+}
+
+Fish -up-|> Animal
+class Fish {
+    -int reproductFrequency
+    +Fish (reproductFrequency, lifetime, speed, feelDistance, x, y, iAnimalListener)
+    +nextAction(animals, streams, field)
+    +void reproduct()
+    -void move(animals, streams, field)
+}
+
+Shark -up-|> Animal
+class Shark {
+    -int timeHungryDeath
+    -int timeHungry
+    -int reproductAge
+    +Shark (lifetime, timeHungryDeath, speed, feelDistance, x, y, iAnimalListener)
+    +nextAction(animals, field)
+    +void reproduct()
+    -void move(animals, field)
+    -void eat(List<Animal> animals)
+}
+
+Stream -up-|>Entity
+class Stream {
+    -int speed
+    -int StartCoordinate
+    -int EndCoordinate
+    +Stream(speed, startCoordinate, endCoordinate)
 }
 
 DataHandler *-- SystemState
@@ -95,8 +182,10 @@ class SystemState {
     -boolean fieldClosed
     -int fieldHeight
     -int fieldWidth
-    -List<Animal> animals
     -List<Stream> streams
+    -List<Animal> animals
+    +SystemState(streams, animals, field)
+    +void updateSystemState()
 }
 
 Controller *-- Visualizer
@@ -105,64 +194,53 @@ Visualizer ..> Field
 class Visualizer {
     +Visualizer(Field field)
     +void visualize(Snapshot snapshot)
+    +void closeScreen()
 }
 
-Controller *-right- Writer
+Controller *-left- Writer
 Writer ..> Statistics
 abstract class Writer {
-    -void openFile()
-    -void closeFile()
-    +{abstract} write(Statistics statistics)
+    -String fileNameString
+    -boolean overwritePermission
+    #StringBuilder content
+    +Writer(fileNameString, overwritePermission)
+    +void createFile()
+    +void writeFile()
+    +voif deleteFile(String fileName)
 }
 
-DOMWriter --|> Writer
-class DOMWriter {
-    +write(Statistics statistics)
+XMLWriter --|> Writer
+abstract class XMLWriter {
+    +XMLWriter(fileNameSting, overwritePermission)
+    +{abstract} void addRecord(Statistics statistics)
 }
-
-JAXBWriter --|> Writer
+DOM_XMLWriter --|> XMLWriter
+class DOM_XMLWriter {
+    +DOM_XMLWriter(fileNameString, overwritePermission)
+    +void addRecord(Statistics statistics)
+}
+JAXBWriter --|> XMLWriter
 class JAXBWriter {
-    +write(Statistics statistics)
+    +JAXBWriter(fileNameString, overwritePermission)
+    +void addRecord(Statistics statistics)
 }
 
-DataHandler *-- Entity
-interface Entity {
+CSVWriter --|> Writer
+abstract class CSVWriter {
+    +CSVWriter(fileNameSting, overwritePermission)
+    #boolean validateXML(String xmlFileName, String xsdFileName)
+    +{abstract} void createCSV(String fileXML, String fileXSD)
 }
-Animal -up-|> Entity
-abstract class Animal {
-    #FishCode code
-    #boolean alive
-    #int timeToLive
-    #int speed 
-    #int feelDistance
-    #int reproductionFrequency
-    #int xCoordinate
-    #int yCoordinate
-    +void move()
-    +{abstract} void reproduct()
-    +void die()
+DOM_CSVWriter --|> CSVWriter
+class DOM_CSVWriter {
+    +DOM_CSVWriter(fileNameString, overwritePermission)
+    +void createCSV(String fileXML, String fileXSD)
 }
-
-Fish -up-|> Animal
-class Fish {
-    +void reproduct()
+JAXB_CSVWriter --|> CSVWriter
+class JAXB_CSVWriter {
+    +JAXB_CSVWriter(fileNameString, overwritePermission)
+    +void createCSV(String fileXML, String fileXSD)
 }
 
-Shark -up-|> Animal
-class Shark {
-    -int timeOfHungryDeath
-    +void eat(Fish fish)
-    +void reproduct()
-}
-
-Stream -up-|>Entity
-class Stream {
-    -int speed
-    -int yStartCoordinate
-    -int yEndCoordinate
-}
-
-note "Controller.parseInputData() {\n\tparser.parse();\n}" as note_parse
-note "Controller.work() {\n\tdataHandler.proccessNextStep();\n\tvisualizer.visualize(dataHandler.generateSnapshot());\n\tWriter.write(dataHandler.generateStatistics();)\n}" as note_work
 
 @enduml
