@@ -66,6 +66,8 @@
                             <mainClass>com.simonov_kurguzkin.aquathor.App</mainClass>
                         </manifest>
                     </archive>
+										<finalName>AquaTorus</finalName>
+										<appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
@@ -76,7 +78,17 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>      
+            </plugin>						
+						<plugin>
+								<artifactId>maven-jar-plugin</artifactId>
+								<version>3.0.2</version>
+								<executions>
+									<execution>
+										 <id>default-jar</id>
+										 <phase>none</phase>
+									</execution>
+								</executions>
+						</plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
