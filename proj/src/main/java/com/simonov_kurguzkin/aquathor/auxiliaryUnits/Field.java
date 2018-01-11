@@ -52,8 +52,8 @@ public class Field {
         //определяем размеры экрана
         GraphicsDevice gd = GraphicsEnvironment
                 .getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        MAX_WIDTH = gd.getDisplayMode().getWidth() / 9;
-        MAX_HEIGHT = gd.getDisplayMode().getHeight() / 20;
+        MAX_WIDTH = gd.getDisplayMode().getWidth() / 10;
+        MAX_HEIGHT = gd.getDisplayMode().getHeight() / 22;
         if (width > MAX_WIDTH) {
             Logger logger = LoggerFactory.getLogger(Controller.class);
             logger.info("The field width is too large in the configuration file. "
