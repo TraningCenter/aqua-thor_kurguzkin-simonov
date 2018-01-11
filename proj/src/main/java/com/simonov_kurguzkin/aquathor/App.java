@@ -14,15 +14,15 @@ public class App {
      */
     public static void main(String[] args) {
         // Console
-//        String configFile = "classes/configure.xml";
-//        String inputFile = "classes/input.xml";
-//        String outputXMLFile = "classes/statistics.xml";
-//        String outputCSVFile = "classes/statistics.csv";
+        String configFile = "configure.xml";
+        String inputFile = "input.xml";
+        String outputXMLFile = "statistics.xml";
+        String outputCSVFile = "statistics.csv";
         // IDE
-        String configFile = "src/main/resources/configure.xml";
-        String inputFile = "src/main/resources/input.xml";
-        String outputXMLFile = "src/main/resources/statistics.xml";
-        String outputCSVFile = "src/main/resources/statistics.csv";
+//        String configFile = "src/main/resources/configure.xml";
+//        String inputFile = "src/main/resources/input.xml";
+//        String outputXMLFile = "src/main/resources/statistics.xml";
+//        String outputCSVFile = "src/main/resources/statistics.csv";
         Controller controller = new Controller(configFile, inputFile, outputXMLFile, outputCSVFile);
         controller.work();
     }

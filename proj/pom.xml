@@ -101,6 +101,30 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+                <execution>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <tasks>
+                            <mkdir dir="${project.build.directory}/resources" />
+                            <copy file="${basedir}/src/main/resources/configure.xml" tofile="${project.build.directory}/configure.xml" />
+                            <copy file="${basedir}/src/main/resources/configure.xsd" tofile="${project.build.directory}/configure.xsd" />
+                            <copy file="${basedir}/src/main/resources/input.xml" tofile="${project.build.directory}/input.xml" />
+                            <copy file="${basedir}/src/main/resources/input.xsd" tofile="${project.build.directory}/input.xsd" />
+                            <copy file="${basedir}/src/main/resources/statistics.csv" tofile="${project.build.directory}/statistics.csv" />
+                            <copy file="${basedir}/src/main/resources/statistics.xml" tofile="${project.build.directory}/statistics.xml" />
+                            <copy file="${basedir}/src/main/resources/statistics.xsd" tofile="${project.build.directory}/statistics.xsd" />
+                        </tasks>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
         </plugins>
     </build>
     

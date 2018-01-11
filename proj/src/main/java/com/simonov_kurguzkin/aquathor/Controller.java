@@ -109,13 +109,13 @@ public class Controller {
             String outputXMLFileName, String outputCSVFileName) {
         this.configFileName = configFile;
         //Console
-//        this.xsdConfigFileName = "classes/configure.xsd";
-//        this.xsdInputFileName = "classes/input.xsd";
-//        this.xsdOutputXMLFileName = "classes/statistics.xsd";
+        this.xsdConfigFileName = "configure.xsd";
+        this.xsdInputFileName = "input.xsd";
+        this.xsdOutputXMLFileName = "statistics.xsd";
         //IDE
-        this.xsdConfigFileName = "src/main/resources/configure.xsd";
-        this.xsdInputFileName = "src/main/resources/input.xsd";
-        this.xsdOutputXMLFileName = "src/main/resources/statistics.xsd";
+//        this.xsdConfigFileName = "src/main/resources/configure.xsd";
+//        this.xsdInputFileName = "src/main/resources/input.xsd";
+//        this.xsdOutputXMLFileName = "src/main/resources/statistics.xsd";
 
         this.inputFileName = inputFile;
         this.outputXMLFileName = outputXMLFileName;
