@@ -18,14 +18,14 @@
 			<time_to_live>10</time_to_live>
 			<speed>3</speed>
 			<feel_radius>4</feel_radius>
-			<quantity>15</quantity>
+			<quantity>1500</quantity>
 		</fish>
 		<shark>
 			<time_to_live>15</time_to_live>
 			<time_to_hungry_live>15</time_to_hungry_live>
 			<speed>3</speed>
 			<feel_radius>7</feel_radius>
-			<quantity>10</quantity>
+			<quantity>500</quantity>
 		</shark>
 	</animals>
 </entities>

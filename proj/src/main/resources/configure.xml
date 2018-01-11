@@ -2,11 +2,11 @@
 <configuration>
 	<in_parser>DOM</in_parser>
 	<out_parser>DOM</out_parser>
-	<game_time>12</game_time>
+	<game_time>15</game_time>
 	<field>
 		<enclosed>false</enclosed>
-		<width>30</width>
-		<height>10</height>
+		<width>1000</width>
+		<height>1000</height>
 	</field>
 </configuration>
 

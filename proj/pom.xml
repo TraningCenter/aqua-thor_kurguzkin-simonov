@@ -10,7 +10,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--<log4j.configuration>file:com.simonov_kurguzkin.aquathor.auxiliaryUnits.log4j.properties</log4j.configuration>-->
     </properties>
     
     <dependencies>        
@@ -35,12 +34,6 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
-<!--        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
-            <scope>test</scope>
-        </dependency>-->
     </dependencies>
     
     <build>
@@ -66,8 +59,8 @@
                             <mainClass>com.simonov_kurguzkin.aquathor.App</mainClass>
                         </manifest>
                     </archive>
-										<finalName>AquaTorus</finalName>
-										<appendAssemblyId>false</appendAssemblyId>
+                    <finalName>AquaTorus</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
@@ -79,16 +72,16 @@
                     </execution>
                 </executions>
             </plugin>						
-						<plugin>
-								<artifactId>maven-jar-plugin</artifactId>
-								<version>3.0.2</version>
-								<executions>
-									<execution>
-										 <id>default-jar</id>
-										 <phase>none</phase>
-									</execution>
-								</executions>
-						</plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

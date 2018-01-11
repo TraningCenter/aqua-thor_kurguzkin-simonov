@@ -109,13 +109,13 @@ public class Controller {
             String outputXMLFileName, String outputCSVFileName) {
         this.configFileName = configFile;
         //Console
-        this.xsdConfigFileName = "classes/configure.xsd";
-        this.xsdInputFileName = "classes/input.xsd";
-        this.xsdOutputXMLFileName = "classes/statistics.xsd";
+//        this.xsdConfigFileName = "classes/configure.xsd";
+//        this.xsdInputFileName = "classes/input.xsd";
+//        this.xsdOutputXMLFileName = "classes/statistics.xsd";
         //IDE
-//        this.xsdConfigFileName = "src/main/resources/configure.xsd";
-//        this.xsdInputFileName = "src/main/resources/input.xsd";
-//        this.xsdOutputXMLFileName = "src/main/resources/statistics.xsd";
+        this.xsdConfigFileName = "src/main/resources/configure.xsd";
+        this.xsdInputFileName = "src/main/resources/input.xsd";
+        this.xsdOutputXMLFileName = "src/main/resources/statistics.xsd";
 
         this.inputFileName = inputFile;
         this.outputXMLFileName = outputXMLFileName;
@@ -134,6 +134,7 @@ public class Controller {
                 initialize();
             } catch (IllegalArgumentException | IOException ex) {
                 Logger logger = LoggerFactory.getLogger(Controller.class);
+                logger.error(ex.getMessage());
                 logger.error("When reading the input files, an error occurred. "
                         + "\nPlease check the presence of files and the correctness of the records in them. "
                         + "\nAfter that restart this program");
@@ -239,6 +240,9 @@ public class Controller {
     private void initilizeGameTime(int time) {
         if (time < 0 || time > 50) {
             time = 20;
+            Logger logger = LoggerFactory.getLogger(Controller.class);
+            logger.error("Value of time in configuration file is too large "
+                    + "for the simulation time. It was reduced to: " + time);
         }
         this.gameTime = time;
     }

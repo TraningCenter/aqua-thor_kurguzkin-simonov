@@ -1,5 +1,6 @@
 package com.simonov_kurguzkin.aquathor.dataHandler;
 
+import com.simonov_kurguzkin.aquathor.Controller;
 import com.simonov_kurguzkin.aquathor.auxiliaryUnits.AnimalView;
 import com.simonov_kurguzkin.aquathor.auxiliaryUnits.EntityView;
 import com.simonov_kurguzkin.aquathor.auxiliaryUnits.Field;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class that is responsible for the logic of the application
@@ -82,9 +85,20 @@ public class DataHandler {
             int speed = speeds.get(i);
             int start = starts.get(i);
             int end = ends.get(i);
-            if (start >= end || start < 0 || start > field.getHeight()
-                    || end < 0 || end >= field.getHeight())
+            if (start >= end || start < 0 || end <= 0)
                 throw new IllegalArgumentException("data on streams are incorrect");
+            if (start >= field.getHeight() || end >= field.getHeight()) {
+                Logger logger = LoggerFactory.getLogger(Controller.class);
+                if (start >= field.getHeight() && end >= field.getHeight()) {
+                    logger.info("Both coordinates of one of the streams are too large."
+                            + " Stream was not added");
+                    continue;
+                } else if (start < field.getHeight()) {
+                    end = field.getHeight() - 1;
+                    logger.info("The coordinate of the end of the stream was too important. "
+                            + "Therefore, it was replaced with the maximum possible: " + end);
+                }
+            }
             result.add(new Stream(speed, start, end));
         }
         return result;
@@ -119,9 +133,10 @@ public class DataHandler {
             throw new IllegalArgumentException("data on sharks are incorrect");
 
         int animalQuantity = fishQuantity + sharkQuantity;
-        if (field.getHeight() * field.getWidth() < animalQuantity)
+        if (field.getHeight() * field.getWidth() / field.MAX_FREE_CELLS < animalQuantity) {
             throw new IllegalArgumentException(
                     "animal data is incorrect: too many animals for this field");
+        }
 
         List<Integer> coordinates = new LinkedList<>();
         for (int i = 0; i < field.getWidth(); i++) {
