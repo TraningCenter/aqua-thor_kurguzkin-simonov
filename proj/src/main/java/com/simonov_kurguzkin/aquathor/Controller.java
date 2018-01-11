@@ -109,9 +109,9 @@ public class Controller {
             String outputXMLFileName, String outputCSVFileName) {
         this.configFileName = configFile;
         //Console
-        this.xsdConfigFileName = "configure.xsd";
-        this.xsdInputFileName = "input.xsd";
-        this.xsdOutputXMLFileName = "statistics.xsd";
+        this.xsdConfigFileName = "classes/configure.xsd";
+        this.xsdInputFileName = "classes/input.xsd";
+        this.xsdOutputXMLFileName = "classes/statistics.xsd";
         //IDE
 //        this.xsdConfigFileName = "src/main/resources/configure.xsd";
 //        this.xsdInputFileName = "src/main/resources/input.xsd";
