@@ -2,82 +2,182 @@
 <statistics>
     <step>
         <iteration>0</iteration>
-        <fishes_alive>1500</fishes_alive>
-        <sharks_alive>500</sharks_alive>
+        <fishes_alive>500</fishes_alive>
+        <sharks_alive>200</sharks_alive>
     </step>
     <step>
         <iteration>1</iteration>
-        <fishes_alive>1364</fishes_alive>
-        <sharks_alive>500</sharks_alive>
+        <fishes_alive>485</fishes_alive>
+        <sharks_alive>200</sharks_alive>
     </step>
     <step>
         <iteration>2</iteration>
-        <fishes_alive>1273</fishes_alive>
-        <sharks_alive>538</sharks_alive>
+        <fishes_alive>468</fishes_alive>
+        <sharks_alive>215</sharks_alive>
     </step>
     <step>
         <iteration>3</iteration>
-        <fishes_alive>1167</fishes_alive>
-        <sharks_alive>571</sharks_alive>
+        <fishes_alive>453</fishes_alive>
+        <sharks_alive>231</sharks_alive>
     </step>
     <step>
         <iteration>4</iteration>
-        <fishes_alive>1057</fishes_alive>
-        <sharks_alive>614</sharks_alive>
+        <fishes_alive>430</fishes_alive>
+        <sharks_alive>254</sharks_alive>
     </step>
     <step>
         <iteration>5</iteration>
-        <fishes_alive>968</fishes_alive>
-        <sharks_alive>653</sharks_alive>
+        <fishes_alive>408</fishes_alive>
+        <sharks_alive>273</sharks_alive>
     </step>
     <step>
         <iteration>6</iteration>
-        <fishes_alive>1653</fishes_alive>
-        <sharks_alive>507</sharks_alive>
+        <fishes_alive>754</fishes_alive>
+        <sharks_alive>164</sharks_alive>
     </step>
     <step>
         <iteration>7</iteration>
-        <fishes_alive>1517</fishes_alive>
-        <sharks_alive>485</sharks_alive>
+        <fishes_alive>713</fishes_alive>
+        <sharks_alive>166</sharks_alive>
     </step>
     <step>
         <iteration>8</iteration>
-        <fishes_alive>1432</fishes_alive>
-        <sharks_alive>452</sharks_alive>
+        <fishes_alive>682</fishes_alive>
+        <sharks_alive>157</sharks_alive>
     </step>
     <step>
         <iteration>9</iteration>
-        <fishes_alive>1360</fishes_alive>
-        <sharks_alive>440</sharks_alive>
+        <fishes_alive>659</fishes_alive>
+        <sharks_alive>147</sharks_alive>
     </step>
     <step>
         <iteration>10</iteration>
-        <fishes_alive>1300</fishes_alive>
-        <sharks_alive>402</sharks_alive>
+        <fishes_alive>646</fishes_alive>
+        <sharks_alive>130</sharks_alive>
     </step>
     <step>
         <iteration>11</iteration>
-        <fishes_alive>574</fishes_alive>
-        <sharks_alive>379</sharks_alive>
+        <fishes_alive>302</fishes_alive>
+        <sharks_alive>120</sharks_alive>
     </step>
     <step>
         <iteration>12</iteration>
-        <fishes_alive>1034</fishes_alive>
-        <sharks_alive>375</sharks_alive>
+        <fishes_alive>584</fishes_alive>
+        <sharks_alive>115</sharks_alive>
     </step>
     <step>
         <iteration>13</iteration>
-        <fishes_alive>977</fishes_alive>
-        <sharks_alive>339</sharks_alive>
+        <fishes_alive>567</fishes_alive>
+        <sharks_alive>99</sharks_alive>
     </step>
     <step>
         <iteration>14</iteration>
-        <fishes_alive>950</fishes_alive>
-        <sharks_alive>323</sharks_alive>
+        <fishes_alive>564</fishes_alive>
+        <sharks_alive>84</sharks_alive>
     </step>
     <step>
         <iteration>15</iteration>
-        <fishes_alive>914</fishes_alive>
-        <sharks_alive>292</sharks_alive>
+        <fishes_alive>560</fishes_alive>
+        <sharks_alive>75</sharks_alive>
+    </step>
+    <step>
+        <iteration>16</iteration>
+        <fishes_alive>559</fishes_alive>
+        <sharks_alive>59</sharks_alive>
+    </step>
+    <step>
+        <iteration>17</iteration>
+        <fishes_alive>268</fishes_alive>
+        <sharks_alive>45</sharks_alive>
+    </step>
+    <step>
+        <iteration>18</iteration>
+        <fishes_alive>512</fishes_alive>
+        <sharks_alive>39</sharks_alive>
+    </step>
+    <step>
+        <iteration>19</iteration>
+        <fishes_alive>509</fishes_alive>
+        <sharks_alive>32</sharks_alive>
+    </step>
+    <step>
+        <iteration>20</iteration>
+        <fishes_alive>509</fishes_alive>
+        <sharks_alive>28</sharks_alive>
+    </step>
+    <step>
+        <iteration>21</iteration>
+        <fishes_alive>505</fishes_alive>
+        <sharks_alive>20</sharks_alive>
+    </step>
+    <step>
+        <iteration>22</iteration>
+        <fishes_alive>503</fishes_alive>
+        <sharks_alive>17</sharks_alive>
+    </step>
+    <step>
+        <iteration>23</iteration>
+        <fishes_alive>241</fishes_alive>
+        <sharks_alive>11</sharks_alive>
+    </step>
+    <step>
+        <iteration>24</iteration>
+        <fishes_alive>466</fishes_alive>
+        <sharks_alive>9</sharks_alive>
+    </step>
+    <step>
+        <iteration>25</iteration>
+        <fishes_alive>466</fishes_alive>
+        <sharks_alive>5</sharks_alive>
+    </step>
+    <step>
+        <iteration>26</iteration>
+        <fishes_alive>466</fishes_alive>
+        <sharks_alive>6</sharks_alive>
+    </step>
+    <step>
+        <iteration>27</iteration>
+        <fishes_alive>466</fishes_alive>
+        <sharks_alive>4</sharks_alive>
+    </step>
+    <step>
+        <iteration>28</iteration>
+        <fishes_alive>466</fishes_alive>
+        <sharks_alive>3</sharks_alive>
+    </step>
+    <step>
+        <iteration>29</iteration>
+        <fishes_alive>225</fishes_alive>
+        <sharks_alive>2</sharks_alive>
+    </step>
+    <step>
+        <iteration>30</iteration>
+        <fishes_alive>443</fishes_alive>
+        <sharks_alive>2</sharks_alive>
+    </step>
+    <step>
+        <iteration>31</iteration>
+        <fishes_alive>443</fishes_alive>
+        <sharks_alive>2</sharks_alive>
+    </step>
+    <step>
+        <iteration>32</iteration>
+        <fishes_alive>443</fishes_alive>
+        <sharks_alive>1</sharks_alive>
+    </step>
+    <step>
+        <iteration>33</iteration>
+        <fishes_alive>443</fishes_alive>
+        <sharks_alive>1</sharks_alive>
+    </step>
+    <step>
+        <iteration>34</iteration>
+        <fishes_alive>443</fishes_alive>
+        <sharks_alive>1</sharks_alive>
+    </step>
+    <step>
+        <iteration>35</iteration>
+        <fishes_alive>218</fishes_alive>
+        <sharks_alive>0</sharks_alive>
     </step>
 </statistics>

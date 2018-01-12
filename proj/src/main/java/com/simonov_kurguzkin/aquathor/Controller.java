@@ -1,6 +1,7 @@
 package com.simonov_kurguzkin.aquathor;
 
 import com.simonov_kurguzkin.aquathor.auxiliaryUnits.Field;
+import com.simonov_kurguzkin.aquathor.auxiliaryUnits.Statistics;
 import com.simonov_kurguzkin.aquathor.dataHandler.DataHandler;
 import com.simonov_kurguzkin.aquathor.inputParser.DOMParser;
 import com.simonov_kurguzkin.aquathor.inputParser.JAXBParser;
@@ -129,11 +130,11 @@ public class Controller {
      * Method, in which all the basics parts works
      */
     public void work() {
+        Logger logger = LoggerFactory.getLogger(Controller.class);
         do {
             try {
                 initialize();
             } catch (IllegalArgumentException | IOException ex) {
-                Logger logger = LoggerFactory.getLogger(Controller.class);
                 logger.error(ex.getMessage());
                 logger.error("When reading the input files, an error occurred. "
                         + "\nPlease check the presence of files and the correctness of the records in them. "
@@ -145,13 +146,18 @@ public class Controller {
             int iteration = 0;
             while (iteration++ <= gameTime) {
                 visualizer.visualize(dataHandler.generateSnapshot());
-                xmlWriter.addRecord(dataHandler.generateStatistics());
+                Statistics statistics = dataHandler.generateStatistics();
+                xmlWriter.addRecord(statistics);
                 xmlWriter.writeFile();
-                dataHandler.processNextStep();
+                if (!checkGameOver(statistics))
+                    dataHandler.processNextStep();
+                else {
+                    logger.info("One of the populations died, so we completed the simulation before");
+                    break;
+                }
                 try {
                     Thread.sleep(pause);
                 } catch (InterruptedException ex) {
-                    Logger logger = LoggerFactory.getLogger(Controller.class);
                     logger.error("Some error during thread sleeping in controller");
                 }
             }
@@ -161,7 +167,6 @@ public class Controller {
             try {
                 visualizer.closeScreen();
             } catch (IOException ex) {
-                Logger logger = LoggerFactory.getLogger(Controller.class);
                 logger.error("Error while trying to close the screen in controller");
             }
         } while (checkFilesChanged());
@@ -238,8 +243,8 @@ public class Controller {
      * @param time
      */
     private void initilizeGameTime(int time) {
-        if (time < 0 || time > 50) {
-            time = 20;
+        if (time < 0 || time > 1000000) {
+            time = 1000;
             Logger logger = LoggerFactory.getLogger(Controller.class);
             logger.error("Value of time in configuration file is too large "
                     + "for the simulation time. It was reduced to: " + time);
@@ -265,6 +270,10 @@ public class Controller {
     private void updateLastCheckFiles() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         lastFilesCheck = timestamp.getTime();
+    }
+
+    private boolean checkGameOver(Statistics statistics) {
+        return statistics.getFishAmount() == 0 || statistics.getSharksAmount() == 0;
     }
 
 }
